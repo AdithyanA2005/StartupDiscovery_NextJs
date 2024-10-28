@@ -1,5 +1,6 @@
 import { SearchForm } from "@/components/search-form";
 import { StartupCard, StartupCardType } from "@/components/startup-card";
+import { auth } from "@/auth";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
@@ -7,6 +8,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
   const query = (await searchParams).query;
   const params = { search: query || null };
   const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
+
+  // This will handle creation of author when a user sign-in for the first time
+  await auth();
 
   return (
     <>
