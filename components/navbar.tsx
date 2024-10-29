@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getInitials } from "@/lib/utils";
 import { auth, signIn, signOut } from "@/auth";
 
 export async function Navbar() {
@@ -29,8 +31,15 @@ export async function Navbar() {
                 <button type="submit">Logout</button>
               </form>
 
-              <Link href={`/user/${session?.user?.id}`}>
-                <span>{session?.user?.name}</span>
+              <Link href={`/user/${session?.id}`}>
+                <Avatar className="size-10">
+                  <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
+                  <AvatarFallback>
+                    <div className="flex size-10 items-center justify-center rounded-full bg-primary/20 font-work-sans text-lg">
+                      {getInitials(session?.user?.name)}
+                    </div>
+                  </AvatarFallback>
+                </Avatar>
               </Link>
             </>
           ) : (

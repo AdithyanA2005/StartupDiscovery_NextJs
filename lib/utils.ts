@@ -13,6 +13,10 @@ export function formatDate(date: string) {
   });
 }
 
+export function parseServerActionResponse<T>(response: T) {
+  return JSON.parse(JSON.stringify(response));
+}
+
 export function getInitials(name: string | null | undefined) {
   if (!name) return "";
   const words = name.trim().split(" ");
