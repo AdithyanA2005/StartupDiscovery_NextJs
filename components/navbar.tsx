@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { LogOutIcon, PlusIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials } from "@/lib/utils";
 import { auth, signIn, signOut } from "@/auth";
@@ -9,7 +10,7 @@ export async function Navbar() {
   const session = await auth();
 
   return (
-    <header className="font-work-sans bg-white px-5 py-3 shadow-sm">
+    <header className="bg-white px-5 py-3 font-work-sans shadow-sm">
       <nav className="flex items-center justify-between">
         <Link href="/">
           <Image src="/logo.png" alt="logo" width={150} height={30} />
@@ -19,7 +20,8 @@ export async function Navbar() {
           {session && session.user ? (
             <>
               <Link href="/startup/create">
-                <span>Create</span>
+                <span className="max-sm:hidden">Create</span>
+                <PlusIcon className="size-6 sm:hidden" />
               </Link>
 
               <form
@@ -28,7 +30,10 @@ export async function Navbar() {
                   await signOut({ redirectTo: "/" });
                 }}
               >
-                <button type="submit">Logout</button>
+                <button type="submit" className="align-bottom">
+                  <span className="max-sm:hidden">Logout</span>
+                  <LogOutIcon className="size-6 text-red-500 sm:hidden" />
+                </button>
               </form>
 
               <Link href={`/user/${session?.id}`}>
