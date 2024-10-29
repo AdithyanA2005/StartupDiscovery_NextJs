@@ -59,3 +59,7 @@ export function StartupCard({ post }: { post: StartupCardType }) {
     </li>
   );
 }
+
+StartupCard.Skeleton = function StartupCardSkeleton() {
+  return <Skeleton className="startup-card_skeleton" />;
+};
